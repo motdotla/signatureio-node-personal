@@ -2,4 +2,33 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  small Example app for using the signatureio node module with express.js.
+        
+  form(action="/documents", enctype="multipart/form-data", method="POST")
+    fieldset
+      legend Add a Document
+      p
+        label Enter a URL
+        input.span5(name="url", placeholder="https://www.signature.io/pdfs/sign-below.pdf", type="text")
+      p
+        input.btn.btn-primary(type="submit", value="Add Document")
+  
+  table.table.table-striped
+    tr
+      th ID
+      th Filename
+      th Status
+      th Share URL
+
+    - each document in documents
+      tr
+        td
+          = document.id
+        td
+          = document.filename
+        td
+          = document.status
+        td
+          a(href=document.share_url, target="_blank")
+            = document.share_url
+
